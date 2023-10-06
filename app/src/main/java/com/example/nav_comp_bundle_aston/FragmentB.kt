@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import com.example.nav_comp_bundle_aston.databinding.FragmentBBinding
+
+private const val ARGS_NAME = "args"
 
 class FragmentB : Fragment() {
 
@@ -18,6 +22,17 @@ class FragmentB : Fragment() {
     ): View? {
         _binding = FragmentBBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.goToFragmentC.setOnClickListener {
+            val bundle = bundleOf(ARGS_NAME to "Hello Fragment C")
+            findNavController().navigate(R.id.action_fragmentB_to_fragmentC, bundle)
+        }
+
+        binding.back.setOnClickListener { findNavController().popBackStack(R.id.fragmentA, false) }
     }
 
     override fun onDestroyView() {

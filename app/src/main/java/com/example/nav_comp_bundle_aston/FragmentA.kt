@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.nav_comp_bundle_aston.databinding.FragmentABinding
 
 class FragmentA : Fragment() {
@@ -18,6 +20,14 @@ class FragmentA : Fragment() {
     ): View? {
         _binding = FragmentABinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.goToFragmentB.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentA_to_fragmentB)
+        }
     }
 
     override fun onDestroyView() {
